@@ -1,6 +1,6 @@
 import requests, time, json, random
-from pbf import PBF
-from utils.RegCmd import RegCmd
+from pbf.controller.PBF import PBF
+from pbf.utils.RegCmd import RegCmd
 
 _name = "MC小游戏"
 _version = "1.0.1"
@@ -11,156 +11,126 @@ _cost = 0.00
 class mc(PBF):
     def __enter__(self):
         return [
-            RegCmd(
-                name = "出生",
-                usage = "出生",
-                permission = "anyone",
-                function = "mc@spawn",
-                description = "出生",
-                mode = "我的世界",
-                hidden = 2,
-                type = "command"
-            ),
-            RegCmd(
-                name = "撸树",
-                usage = "撸树",
-                permission = "anyone",
-                function = "mc@cuttree",
-                description = "撸树",
-                mode = "我的世界",
-                hidden = 2,
-                type = "command"
-            ),
-            RegCmd(
-                name = "我在干什么",
-                usage = "我在干什么",
-                permission = "anyone",
-                function = "mc@whatimdoing",
-                description = "我在干什么",
-                mode = "我的世界",
-                hidden = 2,
-                type = "command"
-            ),
-            RegCmd(
-                name = "我的背包",
-                usage = "我的背包",
-                permission = "anyone",
-                function = "mc@mybackpack",
-                description = "我的背包",
-                mode = "我的世界",
-                hidden = 2,
-                type = "command"
-            ),
-            RegCmd(
-                name = "挖矿",
-                usage = "挖矿",
-                permission = "anyone",
-                function = "mc@dig",
-                description = "挖矿",
-                mode = "我的世界",
-                hidden = 2,
-                type = "command"
-            ),
-            RegCmd(
-                name = "我的状态",
-                usage = "我的状态",
-                permission = "anyone",
-                function = "mc@mystatus",
-                description = "我的世界",
-                mode = "我的世界",
-                hidden = 2,
-                type = "command"
-            ),
-            RegCmd(
-                name = "回饱食度",
-                usage = "回饱食度",
-                permission = "anyone",
-                function = "mc@eat",
-                description = "我的世界",
-                mode = "我的世界",
-                hidden = 2,
-                type = "command"
-            ),
-            RegCmd(
-                name = "世界时间",
-                usage = "世界时间",
-                permission = "anyone",
-                function = "mc@worldtime",
-                description = "我的世界",
-                mode = "我的世界",
-                hidden = 2,
-                type = "command"
-            ),
-            RegCmd(
-                name = "合成 ",
-                usage = "合成 <物品> <数量，默认为1>",
-                permission = "anyone",
-                function = "mc@make",
-                description = "我的世界",
-                mode = "我的世界",
-                hidden = 2,
-                type = "command"
-            ),
-            RegCmd(
-                name = "合成表",
-                usage = "合成表",
-                permission = "anyone",
-                function = "mc@listMakeTable",
-                description = "我的世界",
-                mode = "我的世界",
-                hidden = 2,
-                type = "command"
-            ),
-            RegCmd(
-                name = "打怪",
-                usage = "打怪",
-                permission = "anyone",
-                function = "mc@mobsComing",
-                description = "我的世界",
-                mode = "我的世界",
-                hidden = 2,
-                type = "command"
-            ),
-            RegCmd(
-                name = "丢弃 ",
-                usage = "丢弃 <物品> <数量，默认为全部>",
-                permission = "anyone",
-                function = "mc@throw",
-                description = "我的世界",
-                mode = "我的世界",
-                hidden = 2,
-                type = "command"
-            ),
-            RegCmd(
-                name = "经验兑换血量",
-                usage = "经验兑换血量 <要兑换的经验的数量，默认为全部>",
-                permission = "anyone",
-                function = "mc@xpToLife",
-                description = "我的世界",
-                mode = "我的世界",
-                hidden = 2,
-                type = "command"
-            ),
-            RegCmd(
-                name = "血量兑换饱食度",
-                usage = "血量兑换饱食度 <要兑换的血量的数量>",
-                permission = "anyone",
-                function = "mc@lifeToHungry",
-                description = "我的世界",
-                mode = "我的世界",
-                hidden = 2,
-                type = "command"
-            ),
-            RegCmd(
-                name = "MCMessageListener",
-                usage = "MCMessageListener",
-                permission = "anyone",
-                function = "mc@messageListener",
-                description = "我的世界",
-                mode = "我的世界",
-                hidden = 2,
-                type = "message"
-            )
+    @RegCmd(
+        name = "出生",
+        usage = "出生",
+        permission = "anyone",
+        function = "mc@spawn",
+        description = "出生",
+        mode = "我的世界"
+    )
+    @RegCmd(
+        name = "撸树",
+        usage = "撸树",
+        permission = "anyone",
+        function = "mc@cuttree",
+        description = "撸树",
+        mode = "我的世界"
+    )
+    @RegCmd(
+        name = "我在干什么",
+        usage = "我在干什么",
+        permission = "anyone",
+        function = "mc@whatimdoing",
+        description = "我在干什么",
+        mode = "我的世界"
+    )
+    @RegCmd(
+        name = "我的背包",
+        usage = "我的背包",
+        permission = "anyone",
+        function = "mc@mybackpack",
+        description = "我的背包",
+        mode = "我的世界"
+    )
+    @RegCmd(
+        name = "挖矿",
+        usage = "挖矿",
+        permission = "anyone",
+        function = "mc@dig",
+        description = "挖矿",
+        mode = "我的世界"
+    )
+    @RegCmd(
+        name = "我的状态",
+        usage = "我的状态",
+        permission = "anyone",
+        function = "mc@mystatus",
+        description = "我的世界",
+        mode = "我的世界"
+    )
+    @RegCmd(
+        name = "回饱食度",
+        usage = "回饱食度",
+        permission = "anyone",
+        function = "mc@eat",
+        description = "我的世界",
+        mode = "我的世界"
+    )
+    @RegCmd(
+        name = "世界时间",
+        usage = "世界时间",
+        permission = "anyone",
+        function = "mc@worldtime",
+        description = "我的世界",
+        mode = "我的世界"
+    )
+    @RegCmd(
+        name = "合成 ",
+        usage = "合成 <物品> <数量，默认为1>",
+        permission = "anyone",
+        function = "mc@make",
+        description = "我的世界",
+        mode = "我的世界"
+    )
+    @RegCmd(
+        name = "合成表",
+        usage = "合成表",
+        permission = "anyone",
+        function = "mc@listMakeTable",
+        description = "我的世界",
+        mode = "我的世界"
+    )
+    @RegCmd(
+        name = "打怪",
+        usage = "打怪",
+        permission = "anyone",
+        function = "mc@mobsComing",
+        description = "我的世界",
+        mode = "我的世界"
+    )
+    @RegCmd(
+        name = "丢弃 ",
+        usage = "丢弃 <物品> <数量，默认为全部>",
+        permission = "anyone",
+        function = "mc@throw",
+        description = "我的世界",
+        mode = "我的世界"
+    )
+    @RegCmd(
+        name = "经验兑换血量",
+        usage = "经验兑换血量 <要兑换的经验的数量，默认为全部>",
+        permission = "anyone",
+        function = "mc@xpToLife",
+        description = "我的世界",
+        mode = "我的世界"
+    )
+    @RegCmd(
+        name = "血量兑换饱食度",
+        usage = "血量兑换饱食度 <要兑换的血量的数量>",
+        permission = "anyone",
+        function = "mc@lifeToHungry",
+        description = "我的世界",
+        mode = "我的世界"
+    )
+    @RegCmd(
+        name = "MCMessageListener",
+        usage = "MCMessageListener",
+        permission = "anyone",
+        function = "mc@messageListener",
+        description = "我的世界",
+        mode = "我的世界"
+    )
         ]
     
     userItem = []
