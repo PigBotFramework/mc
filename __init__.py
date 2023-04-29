@@ -9,130 +9,6 @@ _author = "xzyStudio"
 _cost = 0.00
 
 class mc(PBF):
-    def __enter__(self):
-        return [
-    @RegCmd(
-        name = "出生",
-        usage = "出生",
-        permission = "anyone",
-        function = "mc@spawn",
-        description = "出生",
-        mode = "我的世界"
-    )
-    @RegCmd(
-        name = "撸树",
-        usage = "撸树",
-        permission = "anyone",
-        function = "mc@cuttree",
-        description = "撸树",
-        mode = "我的世界"
-    )
-    @RegCmd(
-        name = "我在干什么",
-        usage = "我在干什么",
-        permission = "anyone",
-        function = "mc@whatimdoing",
-        description = "我在干什么",
-        mode = "我的世界"
-    )
-    @RegCmd(
-        name = "我的背包",
-        usage = "我的背包",
-        permission = "anyone",
-        function = "mc@mybackpack",
-        description = "我的背包",
-        mode = "我的世界"
-    )
-    @RegCmd(
-        name = "挖矿",
-        usage = "挖矿",
-        permission = "anyone",
-        function = "mc@dig",
-        description = "挖矿",
-        mode = "我的世界"
-    )
-    @RegCmd(
-        name = "我的状态",
-        usage = "我的状态",
-        permission = "anyone",
-        function = "mc@mystatus",
-        description = "我的世界",
-        mode = "我的世界"
-    )
-    @RegCmd(
-        name = "回饱食度",
-        usage = "回饱食度",
-        permission = "anyone",
-        function = "mc@eat",
-        description = "我的世界",
-        mode = "我的世界"
-    )
-    @RegCmd(
-        name = "世界时间",
-        usage = "世界时间",
-        permission = "anyone",
-        function = "mc@worldtime",
-        description = "我的世界",
-        mode = "我的世界"
-    )
-    @RegCmd(
-        name = "合成 ",
-        usage = "合成 <物品> <数量，默认为1>",
-        permission = "anyone",
-        function = "mc@make",
-        description = "我的世界",
-        mode = "我的世界"
-    )
-    @RegCmd(
-        name = "合成表",
-        usage = "合成表",
-        permission = "anyone",
-        function = "mc@listMakeTable",
-        description = "我的世界",
-        mode = "我的世界"
-    )
-    @RegCmd(
-        name = "打怪",
-        usage = "打怪",
-        permission = "anyone",
-        function = "mc@mobsComing",
-        description = "我的世界",
-        mode = "我的世界"
-    )
-    @RegCmd(
-        name = "丢弃 ",
-        usage = "丢弃 <物品> <数量，默认为全部>",
-        permission = "anyone",
-        function = "mc@throw",
-        description = "我的世界",
-        mode = "我的世界"
-    )
-    @RegCmd(
-        name = "经验兑换血量",
-        usage = "经验兑换血量 <要兑换的经验的数量，默认为全部>",
-        permission = "anyone",
-        function = "mc@xpToLife",
-        description = "我的世界",
-        mode = "我的世界"
-    )
-    @RegCmd(
-        name = "血量兑换饱食度",
-        usage = "血量兑换饱食度 <要兑换的血量的数量>",
-        permission = "anyone",
-        function = "mc@lifeToHungry",
-        description = "我的世界",
-        mode = "我的世界"
-    )
-    @RegCmd(
-        name = "MCMessageListener",
-        usage = "MCMessageListener",
-        permission = "anyone",
-        function = "mc@messageListener",
-        description = "我的世界",
-        mode = "我的世界"
-    )
-        ]
-    
     userItem = []
     makeTable = {
         "木镐": [{"name": "原木", "count": 2}],
@@ -212,6 +88,13 @@ class mc(PBF):
         self.userItem['hungry'] += num
         self.mysql.commonx("UPDATE `botMC` SET `hungry`=%s WHERE `qn`=%s", (self.userItem.get("hungry"), self.data.se.get('user_id')))
     
+    @RegCmd(
+        name = "我的背包",
+        usage = "我的背包",
+        permission = "anyone",
+        description = "我的背包",
+        mode = "我的世界"
+    )
     def mybackpack(self):
         self.init()
         if not self.userItem:
@@ -223,6 +106,13 @@ class mc(PBF):
                 message += "[face54{}: {}组余{}个]\n".format(i, int((self.getBackpack(i)-self.getBackpack(i)%64)/64), self.getBackpack(i)%64)
         self.client.msg().raw("[CQ:at,qq={0}] 您的背包：\n{1}".format(self.data.se.get('user_id'), message))
     
+    @RegCmd(
+        name = "我的状态",
+        usage = "我的状态",
+        permission = "anyone",
+        description = "我的世界",
+        mode = "我的世界"
+    )
     def mystatus(self):
         self.init()
         if not self.userItem:
@@ -230,6 +120,13 @@ class mc(PBF):
             return 
         self.client.msg().raw("[CQ:at,qq={}] 您的状态：\nface54您的血量：{}\nface54您的饱食度：{}\nface54您的经验：{}".format(self.data.se.get("user_id"), self.userItem.get("life"), self.userItem.get("hungry"), self.userItem.get("xp")))
     
+    @RegCmd(
+        name = "我在干什么",
+        usage = "我在干什么",
+        permission = "anyone",
+        description = "我在干什么",
+        mode = "我的世界"
+    )
     def whatimdoing(self):
         self.init()
         if not self.userItem:
@@ -239,7 +136,14 @@ class mc(PBF):
             self.client.msg().raw("[CQ:at,qq={0}] 您的角色正在休息呢，赶紧找个事干吧！".format(self.data.se.get("user_id")))
         else:
             self.client.msg().raw("[CQ:at,qq={0}] 您正在{1} 直到{2}".format(self.data.se.get("user_id"), self.userItem.get("doing"), time.ctime(self.userItem.get("doingutill"))))
-        
+    
+    @RegCmd(
+        name = "撸树",
+        usage = "撸树",
+        permission = "anyone",
+        description = "撸树",
+        mode = "我的世界"
+    )
     def cuttree(self):
         if self.check():
             return
@@ -255,7 +159,13 @@ class mc(PBF):
         self.addHungry(-1*hungry)
         self.client.msg().raw("[CQ:at,qq={0}] 开始撸树\nface54当前时间：{1}\nface54撸树时长：{2}秒\nface54获得树木：{3}块\nface54消耗{4}点饱食度\nface54顺便送走了{5}只老王，猪肉已加入背包\nface54获得{6}点经验\n请在{7}再回来领取树木吧！".format(self.data.se.get('user_id'), time.ctime(nowtime), rand, gettree, hungry, pig, self.randomXp(), time.ctime(randtime)))
         
-    
+    @RegCmd(
+        name = "出生",
+        usage = "出生",
+        permission = "anyone",
+        description = "出生",
+        mode = "我的世界"
+    )
     def spawn(self):
         uid = self.data.se.get('user_id')
         self.init()
@@ -264,7 +174,14 @@ class mc(PBF):
             return 
         self.mysql.commonx("INSERT INTO `botMC` (`qn`, `name`, `life`, `hungry`, `backpack`, `achievement`) VALUES (%s, %s, 20, 20, '{}', '[]');", (uid, self.data.se.get('sender').get('nickname')))
         self.client.msg().raw("[CQ:at,qq={0}] 您已出生！\nface54初始生命值：20\nface54初始饱食度：20\n您接下来可以尝试撸树\n\n提示：MC功能机器人发送的所有时间都是UTC时间，与CST时间时差8小时！".format(uid))
-        
+    
+    @RegCmd(
+        name = "挖矿",
+        usage = "挖矿",
+        permission = "anyone",
+        description = "挖矿",
+        mode = "我的世界"
+    )
     def dig(self):
         uid = self.data.se.get("user_id")
         if self.check():
@@ -323,6 +240,13 @@ class mc(PBF):
             return True
         return False
     
+    @RegCmd(
+        name = "回饱食度",
+        usage = "回饱食度",
+        permission = "anyone",
+        description = "我的世界",
+        mode = "我的世界"
+    )
     def eat(self):
         self.init()
         if not self.userItem:
@@ -337,9 +261,23 @@ class mc(PBF):
         message += "\nface54获得{}点经验".format(self.randomXp())
         self.client.msg().raw(message)
     
+    @RegCmd(
+        name = "世界时间",
+        usage = "世界时间",
+        permission = "anyone",
+        description = "我的世界",
+        mode = "我的世界"
+    )
     def worldtime(self):
         self.client.msg().raw("face54当前世界中的时间为：{}".format(time.ctime()))
     
+    @RegCmd(
+        name = "打怪",
+        usage = "打怪",
+        permission = "anyone",
+        description = "我的世界",
+        mode = "我的世界"
+    )
     def mobsComing(self):
         self.init()
         if self.userItem:
@@ -389,6 +327,13 @@ class mc(PBF):
             return False
         return True
     
+    @RegCmd(
+        name = "合成 ",
+        usage = "合成 <物品> <数量，默认为1>",
+        permission = "anyone",
+        description = "我的世界",
+        mode = "我的世界"
+    )
     def make(self):
         self.init()
         if not self.userItem:
@@ -412,6 +357,13 @@ class mc(PBF):
         else:
             self.client.msg().raw("face54合成表里没有这个物品呢qwq")
     
+    @RegCmd(
+        name = "合成表",
+        usage = "合成表",
+        permission = "anyone",
+        description = "我的世界",
+        mode = "我的世界"
+    )
     def listMakeTable(self):
         message = "face54合成表："
         for i in self.makeTable:
@@ -429,7 +381,14 @@ class mc(PBF):
         else:
             return False
         return True
-        
+    
+    @RegCmd(
+        name = "丢弃 ",
+        usage = "丢弃 <物品> <数量，默认为全部>",
+        permission = "anyone",
+        description = "我的世界",
+        mode = "我的世界"
+    )
     def throw(self):
         self.init()
         thi = self.data.args[1]
@@ -446,6 +405,13 @@ class mc(PBF):
         self.addXp(count)
         self.client.msg().raw("face54成功！同时获得经验{}点".format(count))
     
+    @RegCmd(
+        name = "经验兑换血量",
+        usage = "经验兑换血量 <要兑换的经验的数量，默认为全部>",
+        permission = "anyone",
+        description = "我的世界",
+        mode = "我的世界"
+    )
     def xpToLife(self):
         self.init()
         if not self.userItem:
@@ -468,6 +434,13 @@ class mc(PBF):
         else:
             count = self.data.args[-1]
     
+    @RegCmd(
+        name = "血量兑换饱食度",
+        usage = "血量兑换饱食度 <要兑换的血量的数量>",
+        permission = "anyone",
+        description = "我的世界",
+        mode = "我的世界"
+    )
     def lifeToHungry(self):
         self.init()
         if not self.userItem:
@@ -482,6 +455,14 @@ class mc(PBF):
     def pvp(self):
         pass
     
+    @RegCmd(
+        name = "MCMessageListener",
+        usage = "MCMessageListener",
+        permission = "anyone",
+        description = "我的世界",
+        mode = "我的世界",
+        type = "message"
+    )
     def messageListener(self):
         settings = self.data.groupSettings
         if not settings:
