@@ -118,10 +118,10 @@ class mc(PBF):
         message = ""
         for i in self.userItem.get("backpack"):
             if self.getBackpack(i):
-                message += "[face54{}: {}组余{}个]\n".format(i,
+                message += "\nface54{}: {}组余{}个".format(i,
                                                              int((self.getBackpack(i) - self.getBackpack(i) % 64) / 64),
                                                              self.getBackpack(i) % 64)
-        self.client.msg().raw("[CQ:at,qq={0}] 您的背包：\n{1}".format(self.data.se.get('user_id'), message))
+        self.client.msg().raw("[CQ:at,qq={0}] 您的背包：{1}".format(self.data.se.get('user_id'), message))
 
     @RegCmd(
         name="我的状态",
