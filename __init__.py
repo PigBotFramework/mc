@@ -27,12 +27,21 @@ class mc(PBF):
         "金剑": [{"name": "原木", "count": 1}, {"name": "金锭", "count": 2}],
         "钻石剑": [{"name": "原木", "count": 1}, {"name": "钻石", "count": 1}],
         "金苹果": [{"name": "金锭", "count": 72}],
-        "鱼竿": [{"name": "原木", "count": 2}, {"name": "线", "count": 2}]
+        "鱼竿": [{"name": "原木", "count": 2}, {"name": "线", "count": 2}],
+        "TNT": [{"name": "原木", "count": 5}, {"name": "火药", "count": 4}]
     }
     eatList = {
         "猪肉": 1,
         "小麦": 1,
         "金苹果": 5
+    }
+    killList = {
+        "木剑": 2,
+        "石剑": 3,
+        "铁剑": 4,
+        "金剑": 6,
+        "钻石剑": 5,
+        "TNT": 15
     }
 
     def init(self):
@@ -51,16 +60,9 @@ class mc(PBF):
         MCModel(qn=self.data.se.get("user_id"))._delete()
 
     def getKill(self, thi):
-        killList = {
-            "木剑": 2,
-            "石剑": 3,
-            "铁剑": 4,
-            "金剑": 6,
-            "钻石剑": 5
-        }
         if "镐" in thi:
             return 2
-        return killList.get(thi) if killList.get(thi) else 1
+        return self.killList.get(thi) if self.killList.get(thi) else 1
 
     def getProtect(self):
         pass
